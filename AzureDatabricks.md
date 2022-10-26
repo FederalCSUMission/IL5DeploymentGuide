@@ -28,7 +28,7 @@ https://learn.microsoft.com/en-us/azure/azure-government/documentation-governmen
 ## Assigning a Virtual Network to Azure Databricks workspace. 
 #### This is needed to support IL5 compliance with network isolation requirements.
 
-1. If a virtual network has not already been created, please follow the steps below to create one. Please take note that a virtual network is created and managed by default when configuring an Azure Databricks workspace, however best practices outlines creating your own separate virtaul network separate from the installation for better management purposes.
+1. If a virtual network has not already been created, please follow the steps below to create one. Please take note that a virtual network is created and managed by default when configuring an Azure Databricks workspace. If a new VNet is required, these steps outline creating your own separate virtual network separate from the installation for management purposes.
 2. 
 
 ### Creating a Spark cluster in Databricks
