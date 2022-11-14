@@ -46,5 +46,9 @@ https://learn.microsoft.com/en-us/azure/azure-government/documentation-governmen
           - Terminate after ** minutes of inactivity
       - Worker Type: Selection of worker nodes with type of nodes needed to support the workload.
       - Driver Type: Same as worker nodes.
+4. Hit **CREATE** and wait for the cluster to be deployed. This can take a few minutes depending on the size of the compute resources.
+
+
+
 
 
