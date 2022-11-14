@@ -28,8 +28,18 @@ https://learn.microsoft.com/en-us/azure/azure-government/documentation-governmen
 ## Assigning a Virtual Network to Azure Databricks workspace. 
 #### This is needed to support IL5 compliance with network isolation requirements.
 
-1. If a virtual network has not already been created, please follow the steps below to create one. Please take note that a virtual network is created and managed by default when configuring an Azure Databricks workspace. If a new VNet is required, these steps outline creating your own separate virtual network separate from the installation for management purposes.
-2. 
+If a virtual network has not already been created, please follow the steps below to create one. Please take note that a virtual network is created and managed by default when configuring an Azure Databricks workspace. If a new VNet is required, these steps outline creating your own separate virtual network separate from the installation for management purposes.
+1. From the Azure Portal menu, select **Create a Resource.** Then select **Networking > Virtual Network.**
+2. Under **Create Virtual network**, apply the following settings:
+      - Subscription: Name of subscription this is being deployed into
+      - Resource Group: Name of the Resource Group this is being deployed into.
+      - Name: Name of the Virtual Network
+      - Region: Select the region that is closest to your users. This may have an impact for Government regions so ensure that the region selected is supported.
+3. Select Next: IP Addresses > and apply the following settings
+      - IPv4 address space: Please apply the CID range set aside for this Virtual network. 
+      - Subnet Name: The name of the subnet being added to the Virtual network.
+      - Subnet Address Range: The subnet address range in CIDR notation. It must be contained by the address space of the virtual network.  
+4. On the Review + Create tab, select **Create** to deploy the virtual network. 
 
 ### Creating a Spark cluster in Databricks
 #### This is needed for standard operations within Azure Databricks and will be important as certain security protocols will need to be deployed against a cluster to meet IL5 compliancy.
