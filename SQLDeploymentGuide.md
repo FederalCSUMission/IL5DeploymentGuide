@@ -2,8 +2,6 @@
 
 ## Table of Contents
 
-[Prerequisites](#prerequisites)
-
 [Helpful Links](#helpful-links)
 
 [Azure SQL Considerations](#azure-sql-considerations)
@@ -43,15 +41,14 @@ The following links can be used as references for additional information within 
 
 [Set up Transparent Data Encryption (TDE) Extensible Key Management with Azure Key Vault - SQL Server](https://docs.microsoft.com/en-us/sql/relational-databases/security/encryption/setup-steps-for-extensible-key-management-using-the-azure-key-vault?view=sql-server-ver15&tabs=portal#step-1-set-up-an-azure-ad-service-principal)
 
-## Prerequisites
-### Azure SQL Considerations
+## Azure SQL Considerations
 
 When trying to decide between Azure SQL options the following factors should be considered by the customer: 
 1. Current operational processes:
 	* Processes that need to be carried over to Azure:
 		* Example:  Data regularly needs to be moved from low side to high side.  
 			* How is this being done today?  
-			* Can this process become more inconvenient in Azure?  
+			* Can this process be improved in Azure?
 	* Processes that can be improved:
 		* Example:  Monitoring 
 			* Currently reporting on number of SQL instances being up, database status, storage thresholds, memory contention, etc.
