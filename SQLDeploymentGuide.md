@@ -90,6 +90,32 @@ In most cases, customers deploying SQL server on Azure VMs will have their own i
 ### Private Links for Azure SQL Database
 
 Create a Private Endpoint
+1. Begin by searching for "Private Endpoint" in the Azure Marketplace.
+	* Select create Private Endpoint
+2. Choose the following:
+	* Azure subscription
+	* Resource group
+	* Name of endpoint
+	* Region for endpoint
+3. Click Next: Resource
+4. Configure Resource by choosing:
+	* Connection method
+	* Subscription you are connecting to
+	* Resource type you are connecting to
+	* Target sub-resource
+5. Click Next: Virtual Network
+6. Configure Virtual Network by specifying:
+	* The virtual network you will be using
+	* The subnet
+	* A static or dynamic private IP address
+	* DNS integration mapped to a
+		* Subscription
+		* Resource group
+7. Click Next: Tags
+	* Configure tags if desired
+8. Click Next: Review + Create
+9. Click Create
+
 
 #### Prerequisites: Resource Group, Azure SQL Server, Virtual Network
 
