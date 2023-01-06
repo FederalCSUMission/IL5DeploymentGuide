@@ -73,10 +73,13 @@ When trying to decide between Azure SQL options the following factors should be 
 
 SQL Server VM Image
 
-In most cases, customers deploying SQL server on Azure VMs will have their own image instead of using a marketplace image.  In that case, the customers must register the SQL Server VM with the SQL IaaS Agent extension to unlock managed features such as automated backups and patching.  Here are pre-requisites for the IaaS extension:
-* The latest version of Azure CLI or Azure PowerShell (5.0 minimum).
-* A minimum of .NET Framework 4.5.1 or later.
-* Register the subscription with the Microsoft.SqlVirtualMachine resource provider:
+In most cases, customers deploying SQL server on Azure VMs will have their own image instead of using a marketplace image.  In that case, the customers must register the SQL Server VM with the SQL IaaS Agent extension to unlock managed features such as automated backups and patching.
+
+#### Prerequisites for the SQL IaaS Agent extension:
+
+1. The latest version of Azure CLI or Azure PowerShell (5.0 minimum).
+2. A minimum of .NET Framework 4.5.1 or later.
+3. Register the subscription with the Microsoft.SqlVirtualMachine resource provider:
 	* Open the Azure portal and go to All Services.
 	* Go to Subscriptions and select the subscription of interest.
 	* On the Subscriptions page, select Resource providers under Settings.
