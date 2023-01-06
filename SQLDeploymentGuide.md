@@ -147,7 +147,7 @@ Azure SQL Server VM using a marketplace image
 9. In the Image list, select the image with the version of SQL Server and operating system you want.
 10. Choose to Change size for the Size of the virtual machine.
 11. Under Administrator account, provide a username, and a password. 
-12. Under Inbound port rules, choose Allow selected ports and then select RDP (3389) from the drop-down.
+12. Under Inbound port rules, do not enable RDP (3389) from the drop-down. Enable system access using advanced controls in the networking tab after deploying the image.
 13. On the SQL Server settings tab, configure the following options:
 	* Under Security & Networking, select "Private (within Virtual Network) and change the port number to avoid using a well-known port number
 	* Under SQL Authentication, Choose "Disable"
