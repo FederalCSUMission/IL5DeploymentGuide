@@ -171,13 +171,17 @@ Azure SQL Server VM using a marketplace image
 	* Under Compute + storage, select Configure database and choose your service tier and compute tier
 	* Under Backup storage redundancy, choose a redundancy option for the storage account where your backups will be saved. 
 3. Select Next: Networking at the bottom of the page.
-	* For Firewall rules, set Add current client IP address to Yes. Leave Allow Azure services and resources to access this server set to No.
-	* On the Networking tab, for Connectivity method, select Private endpoint. Configure a new private endpoint as explained in section: Private Endpoint for Azure SQL Database
+	* Select connectivity method.
+		* If No access is selected: Define connection policy.
+		* If Public Enpoint is selected: Firewall rules, set Add current client IP address to Yes. Leave Allow Azure services and resources to access this server set to No.
+		* If Private Enpoint is selected: Add Private Enpoint. Configure a new private endpoint as explained in section: Private Endpoint for Azure SQL Database.
 	* Under Connection policy, choose the Default connection policy, and leave the Minimum TLS version at the default of TLS 1.2.
-	* On the Security page, you can choose to start a free trial of Microsoft Defender for SQL, as well as configure Ledger, Managed identities and Transparent data encryption (TDE) if you desire. Select Next: Additional settings at the bottom of the page.
-4. On the Additional settings tab, in the Data source section, for Use existing data, select "none".  You can also configure database collation and a maintenance window.
-5. Select Review + create at the bottom of the page.
-6. On the Review + create page, after reviewing, select Create.
+4. Select Next: Security at the bottom of the page.
+	* On the Security page, you can choose to start a free trial of Microsoft Defender for SQL, as well as configure Ledger, Managed identities and Transparent data encryption (TDE) if you desire. 
+5. Select Next: Additional settings at the bottom of the page.
+	* On the Additional settings tab, in the Data source section, for Use existing data, select "none".  You can also configure database collation and a maintenance window.
+6. Select Review + create at the bottom of the page.
+7. On the Review + create page, after reviewing, select Create.
 
 
 ## Encryption
