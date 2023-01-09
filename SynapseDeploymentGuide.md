@@ -40,7 +40,7 @@ Prerequisites:
       - Having the capability within Synapse to separate\segregate user access via Active Directory provides a more controlled and secured approach in how this resource is accessed.
       - Specific service accounts within AD will also need to be leveraged when configuring Synapse to ensure secure access control throughout the resource is in place.
       - Being able to secure user accounts via MFA provides an extra layer of security.
-   - [Ensure Azure Key Vault is stood up and setup to integrate properly.](#SQLDeploymentGuide.md)
+   - Ensure Azure Key Vault is stood up and setup to integrate properly. (See 'Customer Managed keys for SQL Availability Groups' in the SQL Deployment Guide)
       - Azure Key Vault is necessary for any type of certificate, credential, or secret management that is required throughout Synapse.
 
 
