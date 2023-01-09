@@ -169,13 +169,18 @@ Azure SQL Server VM using a marketplace image
 9. In the Image list, select the image with the version of SQL Server and operating system you want.
 10. Choose to Change size for the Size of the virtual machine.
 11. Under Administrator account, provide a username, and a password. 
-12. Under Inbound port rules, do not enable RDP (3389) from the drop-down. Enable system access using advanced controls in the networking tab after deploying the image.
-13. On the SQL Server settings tab, configure the following options:
+12. On the Disks tab choose to either:
+	* Use encryption at-rest with a customer-managed key. ([requires a disk encryption set](https://learn.microsoft.com/en-us/azure/virtual-machines/disk-encryption-overview))
+	* Use Azure Disk Encryption to encrypt the drives by using dm-crypt (Linux) or BitLocker (Windows).
+		* [Enable Azure Disk Encryption for Windows](https://learn.microsoft.com/en-us/azure/virtual-machines/windows/disk-encryption-overview)
+		* [Enable Azure Disk Encryption for Linux](https://learn.microsoft.com/en-us/azure/virtual-machines/linux/disk-encryption-overview)
+13. Under Inbound port rules, do not enable RDP (3389) from the drop-down. Enable system access using advanced controls in the networking tab after deploying the image.
+14. On the SQL Server settings tab, configure the following options:
 	* Under Security & Networking, select 'Private (within Virtual Network)' and change the port number to avoid using a well-known port number
 	* Under SQL Authentication, Choose 'Disable'
 	* Provide Key vault information as described in section: Key Vault Integration for SQL VMs
 	* Change any other settings if needed, and then select Review + create.
-14. On the Review + create tab, review the summary, and select Create to create SQL Server, resource group, and resources specified for this VM.
+15. On the Review + create tab, review the summary, and select Create to create SQL Server, resource group, and resources specified for this VM.
 
 ### Deploy Azure SQL Database
 
@@ -198,7 +203,11 @@ Azure SQL Server VM using a marketplace image
 		* If Private Enpoint is selected: Add Private Enpoint. Configure a new private endpoint as explained in section: Private Endpoint for Azure SQL Database.
 	* Under Connection policy, choose the Default connection policy, and leave the Minimum TLS version at the default of TLS 1.2.
 4. Select Next: Security at the bottom of the page.
-	* On the Security page, you can choose to start a free trial of Microsoft Defender for SQL, as well as configure Ledger, Managed identities and Transparent data encryption (TDE) if you desire. 
+	* On the Security page, you can choose to start a free trial of Microsoft Defender for SQL, as well as configure Ledger, and Managed identities.
+	* In an IL5 deployment, Transparent data encryption (TDE) must be configured.
+		* Click 'Configure transparent data encryption'.
+		* Choose 'Customer-managed key'.
+		* Either select or enter a key identifier from your Azure Key Vault.
 5. Select Next: Additional settings at the bottom of the page.
 	* On the Additional settings tab, in the Data source section, for Use existing data, select 'none'.  You can also configure database collation and a maintenance window.
 6. Select Review + create at the bottom of the page.
