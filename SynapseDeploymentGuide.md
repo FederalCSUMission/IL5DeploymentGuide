@@ -2,7 +2,7 @@
 
 ### The following links below can be used as references for additional information within the deployment guide, if needed
 
-## Prerequsites
+## Prerequisites
 
 1. [Configure IP firewall rules - Azure Synapse Analytics | Microsoft Docs](https://learn.microsoft.com/en-us/azure/synapse-analytics/security/synapse-workspace-ip-firewall)
 2. [Managed virtual network - Azure Synapse Analytics | Microsoft Docs](https://learn.microsoft.com/en-us/azure/synapse-analytics/security/synapse-workspace-managed-vnet)
@@ -19,7 +19,7 @@
 
 ### This guide has been put together with the intent of assisting customers deploly Synapse within IL5. Each section is broken out by the following- 
 
-  - Pre-requsites needed
+  - Prerequisites needed
       - Firewall
       - Vnet
       - Active Directory
@@ -33,14 +33,14 @@
       - Scripting
       - Create a pipeline (optional)
 
-Pre-requisites:
+Prerequisites:
   - Setup proper Vnet and ensure proper subnet\IP ranges are established:
       - A Vnet, or specific subnet spaces will need to be carved out to support the deployment of Synapse. When planning to deploy to an IL5 environment, all private endpoints within Synapse must be secured when connectivity between Synapse and other services i.e. storage account(s), are being established.
   - Ensure Active directory is setup within your respective environment and identity is able to sync and communicate with Synapse and any other resource.
       - Having the capability within Synapse to separate\segregate user access via Active Directory provides a more controlled and secured approach in how this resource is accessed.
       - Specific service accounts within AD will also need to be leveraged when configuring Synapse to ensure secure access control throughout the resource is in place.
       - Being able to secure user accounts via MFA provides an extra layer of security.
-   - Ensure Azure Key Vault is stood up and setup to integrate properly.
+   - [Ensure Azure Key Vault is stood up and setup to integrate properly.](#key-vault-integration-with-azure-sql-vms)
       - Azure Key Vault is necessary for any type of certificate, credential, or secret management that is required throughout Synapse.
 
 
@@ -78,7 +78,7 @@ Step 6 - Select the "*Enable*" option for workspace encryption. This will allow 
 ![image](https://user-images.githubusercontent.com/95705084/188928145-1f447c41-102c-48ba-84c7-7ab8c583243e.png)
 
 Step 7 - Once these options have bene selected and configured, please click the *"Next: NEtworking*" tab at the bottom to be redirected to the networking portion of Synapse.
-In this screen, you will note only a few settings, however each setting plays a huge factor in how Synapse needs to be secured and accessed. As the progression of this guide takes place, more and more options to secure endpoints across Azure services to Synapse will need to be done. This is a primary step which enables additional steps to take place. (**NOTE**: Please keep in mind that once these Network settings have been configured, they cannot be changed and a new workspace would have to be created. Please ensure that the pre-requisites outlined above have been identified and are ready for deployment)
+In this screen, you will note only a few settings, however each setting plays a huge factor in how Synapse needs to be secured and accessed. As the progression of this guide takes place, more and more options to secure endpoints across Azure services to Synapse will need to be done. This is a primary step which enables additional steps to take place. (**NOTE**: Please keep in mind that once these Network settings have been configured, they cannot be changed and a new workspace would have to be created. Please ensure that the Prerequisites outlined above have been identified and are ready for deployment)
     - Step 7a. Please ensure that "Enable" is selected for Managed virtual Network. The logic behind this selection is to ensure that Synapse is managing the Virtual network traffic and rules versus it being done at the Vnet level. 
 When enabling Managed Virtual Network, a new series of options will pop-up, please select the following as below: 
     - Step 7b. Select "Yes" on "Create Mananaged Private Endpoint to Primary Data storage account". This will create a private and direct line of communication, or "secure traffic" to the Azure Data Lake Gen2 account.
