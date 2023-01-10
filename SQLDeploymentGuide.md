@@ -26,6 +26,7 @@
 
 The following links can be used as references for additional information within the deployment guide, if needed. This is not an exhaustive list as Azure documentation is updated frequently.
 
+[Isolation guidelines for Impact Level 5 workloads](https://learn.microsoft.com/en-us/azure/azure-government/documentation-government-impact-level-5)
 [Register with SQL IaaS Extension (Windows) - SQL Server on Azure VMs](https://learn.microsoft.com/en-us/azure/azure-sql/virtual-machines/windows/sql-agent-extension-manually-register-single-vm?view=azuresql&tabs=bash%2Cazure-cli)
 
 [Register multiple SQL VMs in Azure with the SQL IaaS Agent extension - SQL Server on Azure VMs](https://learn.microsoft.com/en-us/azure/azure-sql/virtual-machines/windows/sql-agent-extension-manually-register-vms-bulk?view=azuresql)

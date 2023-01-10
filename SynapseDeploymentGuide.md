@@ -4,15 +4,16 @@
 
 ## Prerequisites
 
-1. [Configure IP firewall rules - Azure Synapse Analytics | Microsoft Docs](https://learn.microsoft.com/en-us/azure/synapse-analytics/security/synapse-workspace-ip-firewall)
-2. [Managed virtual network - Azure Synapse Analytics | Microsoft Docs](https://learn.microsoft.com/en-us/azure/synapse-analytics/security/synapse-workspace-managed-vnet)
-3. [Managed private endpoints - Azure Synapse Analytics | Microsoft Docs](https://learn.microsoft.com/en-us/azure/synapse-analytics/security/synapse-workspace-managed-private-endpoints)
-4. [Data exfiltration protection for Azure Synapse Analytics workspaces - Azure Synapse Analytics | Microsoft Docs](https://learn.microsoft.com/en-us/azure/synapse-analytics/security/workspace-data-exfiltration-protection)
-5. [Connect to a Synapse Studio using private links - Azure Synapse Analytics | Microsoft Docs](https://learn.microsoft.com/en-us/azure/synapse-analytics/security/how-to-connect-to-workspace-with-private-links)
-6. [Authorize server and database access using logins and user accounts - Azure SQL Database & SQL Managed Instance & Azure Synapse Analytics | Microsoft Docs](https://learn.microsoft.com/en-us/azure/azure-sql/database/logins-create-manage?view=azuresql)
-7. [Azure Active Directory - Azure Synapse Analytics | Microsoft Docs](https://learn.microsoft.com/en-us/azure/synapse-analytics/sql/active-directory-authentication)
-8. [Azure Synapse workspace access control overview - Azure Synapse Analytics | Microsoft Docs](https://learn.microsoft.com/en-us/azure/synapse-analytics/sql/active-directory-authentication)
-9. [Azure Synapse Analytics security white paper - Azure Synapse Analytics | Microsoft Docs](https://learn.microsoft.com/en-us/azure/synapse-analytics/guidance/security-white-paper-introduction)
+[Isolation guidelines for Impact Level 5 workloads](https://learn.microsoft.com/en-us/azure/azure-government/documentation-government-impact-level-5)
+[Configure IP firewall rules - Azure Synapse Analytics | Microsoft Docs](https://learn.microsoft.com/en-us/azure/synapse-analytics/security/synapse-workspace-ip-firewall)
+[Managed virtual network - Azure Synapse Analytics | Microsoft Docs](https://learn.microsoft.com/en-us/azure/synapse-analytics/security/synapse-workspace-managed-vnet)
+[Managed private endpoints - Azure Synapse Analytics | Microsoft Docs](https://learn.microsoft.com/en-us/azure/synapse-analytics/security/synapse-workspace-managed-private-endpoints)
+[Data exfiltration protection for Azure Synapse Analytics workspaces - Azure Synapse Analytics | Microsoft Docs](https://learn.microsoft.com/en-us/azure/synapse-analytics/security/workspace-data-exfiltration-protection)
+[Connect to a Synapse Studio using private links - Azure Synapse Analytics | Microsoft Docs](https://learn.microsoft.com/en-us/azure/synapse-analytics/security/how-to-connect-to-workspace-with-private-links)
+[Authorize server and database access using logins and user accounts - Azure SQL Database & SQL Managed Instance & Azure Synapse Analytics | Microsoft Docs](https://learn.microsoft.com/en-us/azure/azure-sql/database/logins-create-manage?view=azuresql)
+[Azure Active Directory - Azure Synapse Analytics | Microsoft Docs](https://learn.microsoft.com/en-us/azure/synapse-analytics/sql/active-directory-authentication)
+[Azure Synapse workspace access control overview - Azure Synapse Analytics | Microsoft Docs](https://learn.microsoft.com/en-us/azure/synapse-analytics/sql/active-directory-authentication)
+[Azure Synapse Analytics security white paper - Azure Synapse Analytics | Microsoft Docs](https://learn.microsoft.com/en-us/azure/synapse-analytics/guidance/security-white-paper-introduction)
 
 
 ## Deployment Guide for Synapse Analytics
