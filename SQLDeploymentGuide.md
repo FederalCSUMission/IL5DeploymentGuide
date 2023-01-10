@@ -205,7 +205,7 @@ Azure SQL Server VM using a marketplace image
 	* Under Connection policy, choose the Default connection policy, and leave the Minimum TLS version at the default of TLS 1.2.
 4. Select Next: Security at the bottom of the page.
 	* On the Security page, you can choose to start a free trial of Microsoft Defender for SQL, as well as configure Ledger, and Managed identities.
-	* In an IL5 deployment, Transparent data encryption (TDE) must be configured.
+		> In an IL5 deployment, Transparent data encryption (TDE) must be configured.
 		* Click 'Configure transparent data encryption'.
 		* Choose 'Customer-managed key'.
 		* Either select or enter a key identifier from your Azure Key Vault.
