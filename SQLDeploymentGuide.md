@@ -2,8 +2,6 @@
 
 ## Table of Contents
 
-[Prerequisites](#prerequisites)
-
 [Helpful Links](#helpful-links)
 
 [Azure SQL Considerations](#azure-sql-considerations)
@@ -24,11 +22,11 @@
 
 [Customer Managed keys for SQL Availability Groups](#customer-managed-keys-for-sql-availability-groups)
 
-
 ## Helpful Links
 
 The following links can be used as references for additional information within the deployment guide, if needed. This is not an exhaustive list as Azure documentation is updated frequently.
 
+[Isolation guidelines for Impact Level 5 workloads](https://learn.microsoft.com/en-us/azure/azure-government/documentation-government-impact-level-5)
 [Register with SQL IaaS Extension (Windows) - SQL Server on Azure VMs](https://learn.microsoft.com/en-us/azure/azure-sql/virtual-machines/windows/sql-agent-extension-manually-register-single-vm?view=azuresql&tabs=bash%2Cazure-cli)
 
 [Register multiple SQL VMs in Azure with the SQL IaaS Agent extension - SQL Server on Azure VMs](https://learn.microsoft.com/en-us/azure/azure-sql/virtual-machines/windows/sql-agent-extension-manually-register-vms-bulk?view=azuresql)
@@ -43,15 +41,14 @@ The following links can be used as references for additional information within 
 
 [Set up Transparent Data Encryption (TDE) Extensible Key Management with Azure Key Vault - SQL Server](https://docs.microsoft.com/en-us/sql/relational-databases/security/encryption/setup-steps-for-extensible-key-management-using-the-azure-key-vault?view=sql-server-ver15&tabs=portal#step-1-set-up-an-azure-ad-service-principal)
 
-## Prerequisites
-### Azure SQL Considerations
+## Azure SQL Considerations
 
 When trying to decide between Azure SQL options the following factors should be considered by the customer: 
 1. Current operational processes:
 	* Processes that need to be carried over to Azure:
 		* Example:  Data regularly needs to be moved from low side to high side.  
 			* How is this being done today?  
-			* Can this process become more inconvenient in Azure?  
+			* Can this process be improved in Azure?
 	* Processes that can be improved:
 		* Example:  Monitoring 
 			* Currently reporting on number of SQL instances being up, database status, storage thresholds, memory contention, etc.
@@ -76,20 +73,47 @@ When trying to decide between Azure SQL options the following factors should be 
 
 SQL Server VM Image
 
-In most cases, customers deploying SQL server on Azure VMs will have their own image instead of using a marketplace image.  In that case, the customers must register the SQL Server VM with the SQL IaaS Agent extension to unlock managed features such as automated backups and patching.  Here are pre-requisites for the IaaS extension:
-* The latest version of Azure CLI or Azure PowerShell (5.0 minimum).
-* A minimum of .NET Framework 4.5.1 or later.
-* Register the subscription with the Microsoft.SqlVirtualMachine resource provider:
+In most cases, customers deploying SQL server on Azure VMs will have their own image instead of using a marketplace image.  In that case, the customers must register the SQL Server VM with the SQL IaaS Agent extension to unlock managed features such as automated backups and patching.
+
+#### Prerequisites for the SQL IaaS Agent extension:
+
+1. The latest version of Azure CLI or Azure PowerShell (5.0 minimum).
+2. A minimum of .NET Framework 4.5.1 or later.
+3. Register the subscription with the Microsoft.SqlVirtualMachine resource provider:
 	* Open the Azure portal and go to All Services.
 	* Go to Subscriptions and select the subscription of interest.
 	* On the Subscriptions page, select Resource providers under Settings.
 	* Enter sql in the filter to bring up the SQL-related resource providers.
 	* Select Register for the Microsoft.SqlVirtualMachine provider.
-	
 
 ### Private Links for Azure SQL Database
 
 Create a Private Endpoint
+1. Begin by searching for 'Private Endpoint' in the Azure Marketplace.
+	* Select create Private Endpoint
+2. Choose the following:
+	* Azure subscription
+	* Resource group
+	* Name of endpoint
+	* Region for endpoint
+3. Click Next: Resource
+4. Configure Resource by choosing:
+	* Connection method
+	* Subscription you are connecting to
+	* Resource type you are connecting to
+	* Target sub-resource
+5. Click Next: Virtual Network
+6. Configure Virtual Network by specifying:
+	* The virtual network you will be using
+	* The subnet
+	* A static or dynamic private IP address
+	* DNS integration mapped to a
+		* Subscription
+		* Resource group
+7. Click Next: Tags
+	* Configure tags if desired
+8. Click Next: Review + Create
+9. Click Create
 
 #### Prerequisites: Resource Group, Azure SQL Server, Virtual Network
 
@@ -104,7 +128,7 @@ Create a Private Endpoint
 	* Connection method
 	* Subscription
 	* Resource:  the name of the Azure SQL DB server
-	* Target sub-resource:  "sqlServer"
+	* Target sub-resource:  'sqlServer'
 5. In the Networking tab, enter the following information:
 	* Virtual network
 	* Subnet
@@ -114,10 +138,9 @@ Create a Private Endpoint
 
 Approval Process
 1. Navigate to the Azure SQL database server selected in step 4c in the previous section.
-2. Click on "Show networking settings" on the overview blade , in "Essentials" section at the top of the page.
+2. Click on 'Show networking settings' on the overview blade , in 'Essentials' section at the top of the page.
 3. Click on Private access
-4. Verify that the private endpoint (created in the previous section) has the Connection state of "Approved"
-
+4. Verify that the private endpoint (created in the previous section) has the Connection state of 'Approved'
 
 ## Deployment
 ### Deploy SQL Azure VM
@@ -148,17 +171,23 @@ Azure SQL Server VM using a marketplace image
 9. In the Image list, select the image with the version of SQL Server and operating system you want.
 10. Choose to Change size for the Size of the virtual machine.
 11. Under Administrator account, provide a username, and a password. 
-12. Under Inbound port rules, choose Allow selected ports and then select RDP (3389) from the drop-down.
-13. On the SQL Server settings tab, configure the following options:
-	* Under Security & Networking, select "Private (within Virtual Network) and change the port number to avoid using a well-known port number
-	* Under SQL Authentication, Choose "Disable"
+12. On the Disks tab choose to either:
+	* Use encryption at-rest with a customer-managed key. ([requires a disk encryption set](https://learn.microsoft.com/en-us/azure/virtual-machines/disk-encryption-overview))
+	* Use Azure Disk Encryption to encrypt the drives by using dm-crypt (Linux) or BitLocker (Windows).
+		* [Enable Azure Disk Encryption for Windows](https://learn.microsoft.com/en-us/azure/virtual-machines/windows/disk-encryption-overview)
+		* [Enable Azure Disk Encryption for Linux](https://learn.microsoft.com/en-us/azure/virtual-machines/linux/disk-encryption-overview)
+13. Under Inbound port rules, do not enable RDP (3389) from the drop-down. Enable system access using advanced controls in the networking tab after deploying the image.
+14. On the SQL Server settings tab, configure the following options:
+	* Under Security & Networking, select 'Private (within Virtual Network)' and change the port number to avoid using a well-known port number
+	* Under SQL Authentication, Choose 'Disable'
 	* Provide Key vault information as described in section: Key Vault Integration for SQL VMs
 	* Change any other settings if needed, and then select Review + create.
-14. On the Review + create tab, review the summary, and select Create to create SQL Server, resource group, and resources specified for this VM.
-
+15. On the Review + create tab, review the summary, and select Create to create SQL Server, resource group, and resources specified for this VM.
 
 ### Deploy Azure SQL Database
 
+1. To create a single database in the Azure portal, type 'Sql database' in the search bar at the top in azure portal, and click 'Create'
+2. On the Basics tab of the Create SQL Database form, under Project details, select the desired Azure Subscription.
 Create a single database in the Azure portal:
 
 1. In the search bar at the top of the Azure Portal type "Sql databases", and select SQL databases from the listed Services.
@@ -177,44 +206,58 @@ Create a single database in the Azure portal:
 4. Select Next: Networking at the bottom of the page.
 	* For Firewall rules, set Add current client IP address to Yes. Leave Allow Azure services and resources to access this server set to No.
 	* On the Networking tab, for Connectivity method, select Private endpoint. Configure a new private endpoint as explained in section: Private Endpoint for Azure SQL Database. If a private endpoint is already configured for the VNET, it will appear here and the next two steps will appear grayed out.
+3. Select Next: Networking at the bottom of the page.
+	* Select connectivity method.
+		* If No access is selected: Define connection policy.
+		* If Public Enpoint is selected: Firewall rules, set Add current client IP address to Yes. Leave Allow Azure services and resources to access this server set to No.
+		* If Private Enpoint is selected: Add Private Enpoint. Configure a new private endpoint as explained in section: Private Endpoint for Azure SQL Database.
 	* Under Connection policy, choose the Default connection policy, and leave the Minimum TLS version at the default of TLS 1.2.
-	* On the Security page, you can choose to start a free trial of Microsoft Defender for SQL, as well as configure Ledger, Managed identities and Transparent data encryption (TDE) if you desire. Select Next: Additional settings at the bottom of the page.
-5. On the Additional settings tab, in the Data source section, for Use existing data, select "none".  You can also configure database collation and a maintenance window.
+4. Select Next: Security at the bottom of the page.
+	* On the Security page, you can choose to start a free trial of Microsoft Defender for SQL, as well as configure Ledger, and Managed identities.
+		> In an IL5 deployment, Transparent data encryption (TDE) must be configured.
+		* Click 'Configure transparent data encryption'.
+		* Choose 'Customer-managed key'.
+		* Either select or enter a key identifier from your Azure Key Vault.
+5. Select Next: Additional settings at the bottom of the page.
+	* On the Additional settings tab, in the Data source section, for Use existing data, select 'none'.  You can also configure database collation and a maintenance window.
 6. Select Review + create at the bottom of the page.
 7. On the Review + create page, after reviewing, select Create.
-
 
 ## Encryption
 ### Key Vault integration with Azure SQL VMs
-
-1. To create a single database in the Azure portal, in the search bar at the top in the Azure Portal, type "Sql databases", and select SQL databases from the listed Services.
-2. Select + Create, or use the Create SQL Database button
-3. On the Basics tab of the Create SQL Database form, under Project details, select the desired Azure Subscription.
-	* For Resource group, select Create new or pick an existing one from the drop down list
-	* Enter a database name
-	* For Server, select Create new, and fill out the New server form with the following values:
-		* Server name
-		* Location: Select a location from the dropdown list.
-		* Authentication method
-			* Server admin login and Password if SQL authentication is chosen
-	* Leave Want to use SQL elastic pool set to No.
-	* Under Compute + storage, select Configure database and choose your service tier and compute tier
-	* Under Backup storage redundancy, choose a redundancy option for the storage account where your backups will be saved. 
-4. Select Next: Networking at the bottom of the page.
-	* For Firewall rules, set Add current client IP address to Yes. Leave Allow Azure services and resources to access this server set to No.
-	* On the Networking tab, for Connectivity method, select Private endpoint. Configure a new private endpoint as explained in section: Private Endpoint for Azure SQL Database
-	* Under Connection policy, choose the Default connection policy, and leave the Minimum TLS version at the default of TLS 1.2.
-	* On the Security page, you can choose to start a free trial of Microsoft Defender for SQL, as well as configure Ledger, Managed identities and Transparent data encryption (TDE) if you desire. Select Next: Additional settings at the bottom of the page.
-5. On the Additional settings tab, in the Data source section, for Use existing data, select "none".  You can also configure database collation and a maintenance window.
-6. Select Review + create at the bottom of the page.
-7. On the Review + create page, after reviewing, select Create.
+#### Azure Key Vault Set Up
+1. Begin by connecting to your Azure subscription.
+2. Create a resource group exlicitly for your Azure Key Vault.
+	* Navigate to the Portal Menu by clicking on the hamburger at the top left of the portal.
+	* Select Resource Groups.
+	* Click the '+ Create' button to create a new resource group.
+	* Specify the Subscription, resource group name, and region.
+	* Click Next:Tags, if desired to enter tags.
+	* Click Review + create and then create to finish.
+3. Once finished creating the resource group, navigate to it.
+4. Click the '+ Create' button and search for 'Key Vault'.
+5. Click the Key Vault tile to create a new Azure Key Vault.
+	* Select the subscription.
+	* Select the resource group defined in step 2 above.
+	* Name the key vault ad specify the region and pricing tier.
+6. Click Next to go to the Access Policy tab.
+	* Choose either the 'Vault access policy' or 'Azure RBAC' permission model.
+	* Choose which resources have access to the key vault.
+	* Define access policies for users and groups that will access the key vault.
+7. Click Next to go to the Networking tab.
+	* Disable public access, if desired.
+	* Select which networks should have access to the key vault.
+	* Allow, if desired, Microsoft services to bypass the firewall.
+	* Connect to or create a private endpoint.
+8. Click Next for tags, if desired.
+9. Click 'Review + create', to create the key vault.
 
 ### Customer Managed keys for SQL Availability Groups
 
 TDE Encryption with Customer-Managed Keys
 1. Register an App in App registration in the portal to get the Object ID and Secret (see previous section)
 	* Create a Secret, note down the secret value. Note down the Application (client) ID found on the overview page. 
-2. Create a Key Vault 
+2. Create a Key Vault using the procedure above.
 3. Import (or create) a key in the key vault. This key will be used to encrypt databases with TDE. 
 4. Set Access policy in the Key Vault – Use Key Mgmt template and add Unwrap Key , Wrap Key
 	* Set access policy for SQL Server managed ID 
