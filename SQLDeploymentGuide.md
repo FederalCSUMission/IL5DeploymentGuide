@@ -117,7 +117,7 @@ Create a Private Endpoint
 
 #### Prerequisites: Resource Group, Azure SQL Server, Virtual Network
 
-1. In the search box at the top of the portal, enter Private endpoint. Select Private endpoints.
+1. In the search box at the top of the portal, type "Private endpoint". Select Private endpoints from the listed Services.
 2. Select + Create in Private endpoints.
 3. In the Basics tab of Create a private endpoint, enter the following information:
 	* Subscription
@@ -134,6 +134,7 @@ Create a Private Endpoint
 	* Subnet
 	* Private IP configuration
 	* Private DNS integration
+6. In the Review and Create tab, click Create.
 
 Approval Process
 1. Navigate to the Azure SQL database server selected in step 4c in the previous section.
@@ -157,7 +158,7 @@ There are 6 basic steps to creating a custom SQL Server VM image for use in Azur
 Azure SQL Server VM using a marketplace image
 
 1. Sign in to the Azure portal using your account.
-2. Select Azure SQL in the left-hand menu of the Azure portal. If Azure SQL is not in the list, select All services, then type Azure SQL in the search box.
+2. In the search bar at the top of the portal, type "Azure SQL".  Select Azure SQL from the listed Services.
 3. Select +Add to open the Select SQL deployment option page. You can view additional information by selecting Show details on the SQL virtual machines tile.
 4. For conventional SQL Server VMs, select one of the versions labeled Free SQL Server License... from the drop-down. 
 5. Select Create
@@ -187,6 +188,11 @@ Azure SQL Server VM using a marketplace image
 
 1. To create a single database in the Azure portal, type 'Sql database' in the search bar at the top in azure portal, and click 'Create'
 2. On the Basics tab of the Create SQL Database form, under Project details, select the desired Azure Subscription.
+Create a single database in the Azure portal:
+
+1. In the search bar at the top of the Azure Portal type "Sql databases", and select SQL databases from the listed Services.
+2. Select + Create, or use the Create SQL Database button.
+3. On the Basics tab of the Create SQL Database form, under Project details, select the desired Azure Subscription.
 	* For Resource group, select Create new or pick an existing one from the drop down list
 	* Enter a database name
 	* For Server, select Create new, and fill out the New server form with the following values:
@@ -197,6 +203,9 @@ Azure SQL Server VM using a marketplace image
 	* Leave Want to use SQL elastic pool set to No.
 	* Under Compute + storage, select Configure database and choose your service tier and compute tier
 	* Under Backup storage redundancy, choose a redundancy option for the storage account where your backups will be saved. 
+4. Select Next: Networking at the bottom of the page.
+	* For Firewall rules, set Add current client IP address to Yes. Leave Allow Azure services and resources to access this server set to No.
+	* On the Networking tab, for Connectivity method, select Private endpoint. Configure a new private endpoint as explained in section: Private Endpoint for Azure SQL Database. If a private endpoint is already configured for the VNET, it will appear here and the next two steps will appear grayed out.
 3. Select Next: Networking at the bottom of the page.
 	* Select connectivity method.
 		* If No access is selected: Define connection policy.
@@ -326,8 +335,9 @@ TDE Encryption with Customer-Managed Keys
 			GO
 	 
 10.  Restore a TDE encrypted database to another SQL Instance:
-	* Repeat the first 5 sub-steps in step 9
-	* Restore database
+	* Ensure repeat of the first 5 sub-steps in step 9
+	* Restore database and transaction log with NORECOVERY
+	* On Primary Node, ALTER AVAILBAILITY GROUP AG1 ADD DATABASE TestTDE
+	* On Secondary Node, ALTER DATABASE TestTDE SET HADR AVAILABILITY GROUP = AG1
 	* Check status using the last sub step in step 9
- 
 
