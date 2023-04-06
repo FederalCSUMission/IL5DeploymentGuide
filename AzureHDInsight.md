@@ -4,4 +4,8 @@
 
 #### Pre-requsites 
 
-
+- Virtual Network
+- Azure Data Lake Storage Gen 2
+- SQL Database (external and optional)
+- User Managed Identity
+- 
